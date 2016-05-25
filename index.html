@@ -32,7 +32,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Submit Post</a></li>
+        <li><a ng-click='view.showAddPostForm = true' href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Submit Post</a></li>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
@@ -52,21 +52,21 @@
 </nav>
 
 <!-- // start add posts form -->
-<form ng-show='view.showAddPostForm === true' ng-submit='submitPost()' action="#">
+<form ng-show='view.showAddPostForm === true' ng-submit='submitPost()'>
   <div class="form-group">
     <label for="InputTitle">Title</label>
-    <input type="text" class="form-control" id="inputTitle" name="inputTitle" placeholder="Title" required>
+    <input ng-model="view.inputTitle" type="text" class="form-control" id="inputTitle" name="inputTitle" placeholder="Title" required>
   </div>
   <div class="form-group">
     <label for="InputAuthor">Author</label>
-    <input type="text" class="form-control" id="inputAuthor" name="inputAuthor" placeholder="Author" required>
+    <input ng-model="view.inputAuthor" type="text" class="form-control" id="inputAuthor" name="inputAuthor" placeholder="Author" required>
   </div>
     <label for="InputImageUrl">Image URL</label>
-    <input type="text" class="form-control" id="imageUrl" name="inputImageUrl" placeholder="Image URL" required>
+    <input ng-model="view.inputImageUrl" type="text" class="form-control" id="imageUrl" name="inputImageUrl" placeholder="Image URL" required>
   
   <div class="form-group">
     <label for="InputDescription">Description</label>
-    <input type="text" class="form-control" id="description" name="inputDescription" placeholder="Description" required>
+    <input ng-model="view.inputDescription" type="text" class="form-control" id="description" name="inputDescription" placeholder="Description" required>
   </div>
 
 
