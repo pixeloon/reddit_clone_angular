@@ -1,18 +1,24 @@
-.post {
-
+.postOuter {
+  background-color: #FAFAFA;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .postImage {
+  display: inline-block;
+  height: 200px;
 
 }
 
-.postDetails {
+.postDetail {
+  position: relative;
 
-  
 }
 
 .title {
 
+  font-weight: bold;
+  font-size: 2em
 }
 
 .description {
@@ -20,10 +26,20 @@
 }
 
 .author {
+  float: right;
 
 }
 
 .footer {
+  position: absolute;
+  bottom: 0;
 
+}
 
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
 }

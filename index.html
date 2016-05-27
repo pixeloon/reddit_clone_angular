@@ -1,101 +1,97 @@
 <!DOCTYPE html>
 <html lang="en" ng-app='reddit-clone'>
+
 <head>
-  <meta charset="UTF-8">
-  <title>Reddit Clone</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-  
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Reddit Clone</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="container" ng-controller="MainController">
-
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Reddit Clone</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a ng-click='view.showAddPostForm = true' href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Submit Post</a></li>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+    <div class="container" ng-controller="MainController">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Reddit Clone</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a ng-click='view.showAddPostForm = true' href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Submit Post</a></li>
+                        <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                        </form>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Sort by {{view.sorting}} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a ng-click='view.sorting = "Votes"'>Votes</a></li>
+                                <li><a ng-click='view.sorting = "Date"'>Date</a></li>
+                                <li><a ng-click='view.sorting = "Title"'>Title</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <!-- // start add posts form -->
+        <form ng-show='view.showAddPostForm === true' ng-submit='submitPost()'>
+            <div class="form-group">
+                <label for="InputTitle">Title</label>
+                <input ng-model="view.inputTitle" type="text" class="form-control" id="inputTitle" name="inputTitle" placeholder="Title" required>
+            </div>
+            <div class="form-group">
+                <label for="InputAuthor">Author</label>
+                <input ng-model="view.inputAuthor" type="text" class="form-control" id="inputAuthor" name="inputAuthor" placeholder="Author" required>
+            </div>
+            <label for="InputImageUrl">Image URL</label>
+            <input ng-model="view.inputImageUrl" type="text" class="form-control" id="imageUrl" name="inputImageUrl" placeholder="Image URL" required>
+            <div class="form-group">
+                <label for="InputDescription">Description</label>
+                <input ng-model="view.inputDescription" type="text" class="form-control" id="description" name="inputDescription" placeholder="Description" required>
+            </div>
+            <button type="submit" class="btn btn-default">Submit Post</button>
+        </form>
+        <div class="postOuter" ng-repeat='post in view.posts | orderBy: orderPosts()' ng-model='view.posts'>
+            <div class="author">By {{post.author}}</div>
+            <div class="media">
+                <div class="media-left media-top">
+                    <a href="{{post.imageUrl}}">
+                        <img class="media-object" ng-src="{{post.imageUrl}}">
+                    </a>
+                </div>
+                <div class="media-body postDetail">
+                    <h4 class="media-heading">{{post.title}} | <span ng-click='post.votes = post.votes + 1' class="glyphicon glyphicon-arrow-up"></span><span ng-click='post.votes = post.votes - 1'  class="glyphicon glyphicon-arrow-down"></span>
+                    <span ng-class='{"positive": post.votes > 0, "negative": post.votes < 0}' ng-model='post.votes'>{{post.votes}}</span>
+                    </h4>
+                    <div class="description">{{post.description}}</div>
+                    <div class="footer"><span class="glyphicon glyphicon-calendar"></span>{{post.timestamp|date:'mediumDate'}} |  <span class="glyphicon glyphicon-comment"></span>{{post.comments.length}} comments | <span class="glyphicon glyphicon-pencil"></span>Add comment</div>
+                </div>
+            </div>
+            <!-- // end media -->
         </div>
-      </form>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Sort by Votes <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Votes</a></li>
-            <li><a href="#">Date</a></li>
-            <li><a href="#">Title</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-<!-- // start add posts form -->
-<form ng-show='view.showAddPostForm === true' ng-submit='submitPost()'>
-  <div class="form-group">
-    <label for="InputTitle">Title</label>
-    <input ng-model="view.inputTitle" type="text" class="form-control" id="inputTitle" name="inputTitle" placeholder="Title" required>
-  </div>
-  <div class="form-group">
-    <label for="InputAuthor">Author</label>
-    <input ng-model="view.inputAuthor" type="text" class="form-control" id="inputAuthor" name="inputAuthor" placeholder="Author" required>
-  </div>
-    <label for="InputImageUrl">Image URL</label>
-    <input ng-model="view.inputImageUrl" type="text" class="form-control" id="imageUrl" name="inputImageUrl" placeholder="Image URL" required>
-  
-  <div class="form-group">
-    <label for="InputDescription">Description</label>
-    <input ng-model="view.inputDescription" type="text" class="form-control" id="description" name="inputDescription" placeholder="Description" required>
-  </div>
-
-
-  <button type="submit" class="btn btn-default">Submit Post</button>
-  </div>
-</form>
-
-<div class="post">
-  <div class="postImage">
-    
-  </div>
-  <div class="postDetails">
-    <div class="title"></div>
-    <div class="author"></div>
-    <div class="description"></div>
-    <div class="footer"></div>
-
-
-
-  </div>
-</div>
-  
-
-
-
-</div> <!-- // container -->
-  
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
-  
-  <script src='app.js' type='text/javascript'></script>
+    </div>
+    <!-- CONTROLLER ENDS HERE -->
+    <!-- </div> // container -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+    <script src='app.js' type='text/javascript'></script>
 </body>
+
 </html>
