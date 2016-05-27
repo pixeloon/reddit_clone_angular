@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body ng-cloak>
     <div class="container" ng-controller="MainController">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -70,7 +70,7 @@
             <button type="submit" class="btn btn-default">Submit Post</button>
         </form>
         <div class="postOuter" ng-repeat='post in view.posts | orderBy: orderPosts()' ng-model='view.posts'>
-            <div class="author">By {{post.author}}</div>
+            <div class="author">By {{post.author}}&nbsp;</div>
             <div class="media">
                 <div class="media-left media-top">
                     <a href="{{post.imageUrl}}">
@@ -81,8 +81,25 @@
                     <h4 class="media-heading">{{post.title}} | <span ng-click='post.votes = post.votes + 1' class="glyphicon glyphicon-arrow-up"></span><span ng-click='post.votes = post.votes - 1'  class="glyphicon glyphicon-arrow-down"></span>
                     <span ng-class='{"positive": post.votes > 0, "negative": post.votes < 0}' ng-model='post.votes'>{{post.votes}}</span>
                     </h4>
-                    <div class="description">{{post.description}}</div>
-                    <div class="footer"><span class="glyphicon glyphicon-calendar"></span>{{post.timestamp|date:'mediumDate'}} |  <span class="glyphicon glyphicon-comment"></span>{{post.comments.length}} comments | <span class="glyphicon glyphicon-pencil"></span>Add comment</div>
+                    <div class="description">{{post.description}}</div><br><br>
+                    <div class="footer"><span class="glyphicon glyphicon-calendar"></span>{{post.timestamp|date:'medium'}} |  <span class="glyphicon glyphicon-comment"></span><a ng-click='post.showComments = !post.showComments'>&nbsp;{{post.comments.length}} comments</a> | <span class="glyphicon glyphicon-pencil"></span><a ng-click='post.showCommentForm = !post.showCommentForm'>Add comment</a></div>
+                    <div>
+                        <form class="form-inline" ng-show='post.showCommentForm === true' ng-submit='submitComment(post, post.comment)'>
+                            <!-- // form code here -->
+                            <div class="form-group">
+                            <label for="commentAuthor">Author: </label>
+                            <input type="text" ng-model="post.comment.inputCommentAuthor">
+                            <label for="commentText">Text: </label>
+                            <input type="text" ng-model="post.comment.inputCommentText">
+                            <button type="submit" class="btn btn-default">Submit</button>
+                            <button type="cancel" class="btn btn-default" ng-click="post.showCommentForm = false">Cancel</button>
+                            <br><br>
+                            </div>
+                        </form>
+                        <div ng-show='post.showComments === true' ng-repeat='comment in post.comments'>
+                            <div><strong>{{comment.inputCommentAuthor}}:</strong> {{comment.inputCommentText}} </div><br>
+                        </div>
+                    </div> <!-- // end comments -->                    
                 </div>
             </div>
             <!-- // end media -->
